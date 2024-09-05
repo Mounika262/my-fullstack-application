@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/yourusername/EmployeeTracker.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh './gradlew build'  // Build the project (specific to Java/Gradle)
+            }
+        }
+        stage('Test') {
+            steps {
+                sh './gradlew test'  // Run unit tests
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the application...'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline has finished.'
+        }
+    }
+}
